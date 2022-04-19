@@ -1,0 +1,37 @@
+class Solution {
+    public static int[][] flags;
+
+    public static void check(char[][] grid, int row, int col){
+        flags[row][col]=1;
+        int m = grid.length;
+        int n = grid[0].length;
+        if(col-1>=0 && grid[row][col-1]=='1' && flags[row][col-1]==0){
+            check(grid, row, col-1);
+        }
+        if(col+1<n && grid[row][col+1]=='1'  && flags[row][col+1]==0){
+            check(grid, row, col+1);
+        }
+        if(row-1>=0 && grid[row-1][col]=='1' && flags[row-1][col]==0){
+            check(grid, row-1, col);
+        }
+        if(row+1<m && grid[row+1][col]=='1' && flags[row+1][col]==0){
+            check(grid, row+1, col);
+        }
+    }
+    
+    public int numIslands(char[][] grid) {
+        int ans=0;
+        int m= grid.length;
+        int n= grid[0].length;
+        flags = new int[m][n];
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                if(grid[i][j]=='1' && flags[i][j]==0){
+                    ans++;
+                    check(grid, i, j);
+                }
+            }
+        }
+        return ans;
+    }
+}
